@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 210 51% 12%;
+  --muted: 210 32% 96%;
+  --muted-foreground: 214 18% 42%;
+  --border: 214 26% 88%;
+  --surface: 210 40% 98%;
+}
+
+.dark {
+  --background: 211 80% 6%;
+  --foreground: 210 40% 98%;
+  --muted: 214 42% 15%;
+  --muted-foreground: 215 18% 72%;
+  --border: 215 28% 22%;
+  --surface: 213 58% 10%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  text-rendering: optimizeLegibility;
+}
+
+.leaflet-container {
+  position: relative;
+  z-index: 0;
+}
+
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control {
+  z-index: 10 !important;
+}
+
+::selection {
+  background: rgba(22, 119, 255, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer utilities {
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .blueprint-grid {
+    background-image:
+      linear-gradient(rgba(22, 119, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22, 119, 255, 0.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(238, 247, 255, 0.78));
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 20px 70px rgba(7, 24, 39, 0.12);
+    backdrop-filter: blur(18px);
+  }
+
+  .dark .glass-panel {
+    background: linear-gradient(135deg, rgba(8, 24, 39, 0.8), rgba(10, 42, 77, 0.56));
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
