@@ -127,21 +127,18 @@ export default function AboutPage() {
           <AnimatedSection>
             <SectionHeading
               eyebrow="Meet the team"
-              title="Specialists across strategy, engineering, design, and delivery."
-              description="The team structure is designed for enterprise work: clear ownership, strong technical judgment, and practical rollout experience."
+              title="A focused team building complete digital solutions."
+              description="From interface design to backend architecture and data, our team brings complementary expertise to every solution we build."
               tone="dark"
             />
           </AnimatedSection>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {team.map((member) => (
-              <AnimatedSection key={member.name}>
+              <AnimatedSection key={member.name} className="h-full">
                 <article className="h-full rounded-lg border border-white/[0.12] bg-white/[0.06] p-6">
                   <div className="grid size-14 place-items-center rounded-lg bg-primary-500 text-lg font-semibold text-white">
-                    {member.name
-                      .split(" ")
-                      .map((part) => part[0])
-                      .join("")}
+                    {member.initials}
                   </div>
                   <h3 className="mt-5 font-display text-xl font-semibold text-white">{member.name}</h3>
                   <p className="mt-1 text-sm font-semibold text-primary-100">{member.role}</p>

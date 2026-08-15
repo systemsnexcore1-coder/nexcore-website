@@ -379,24 +379,25 @@ export const values = [
 
 export const team = [
   {
-    name: "Amara Collins",
-    role: "Managing Director",
-    summary: "Leads enterprise strategy, governance, and client transformation programs."
+    name: "Brian Elom Alormene",
+    initials: "BA",
+    role: "Full-Stack Developer · Systems & Backend",
+    summary:
+      "Builds end-to-end business applications with a focus on system architecture, backend development, integrations, databases, and workflow automation. Experienced with PHP, MySQL, JavaScript, APIs, and developing operational systems for enterprise environments."
   },
   {
-    name: "Daniel Reed",
-    role: "Solutions Architect",
-    summary: "Designs secure application architecture, integrations, and scalable delivery patterns."
+    name: "Emmanuel Kwame Danso",
+    initials: "ED",
+    role: "Full-Stack Developer · Frontend",
+    summary:
+      "Develops full-stack applications with a strong focus on frontend engineering, responsive interfaces, and translating system requirements into intuitive digital experiences. Works across modern web technologies including JavaScript, React/Next.js, HTML and CSS."
   },
   {
-    name: "Priya Menon",
-    role: "Product Design Lead",
-    summary: "Shapes research-led user experiences for complex operational systems."
-  },
-  {
-    name: "Samuel Wright",
-    role: "Delivery Lead",
-    summary: "Coordinates implementation, quality controls, rollout planning, and support transitions."
+    name: "Michael Martey",
+    initials: "MM",
+    role: "Full-Stack Developer · UI/UX & Database",
+    summary:
+      "Combines full-stack development with UI/UX design and database expertise, focusing on intuitive interfaces, effective user journeys, data structures, and reliable application foundations. Works across interface design, web technologies, SQL and database development."
   }
 ];
 
