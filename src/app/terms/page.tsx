@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { FileText, Mail, ShieldCheck } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { PageIntro } from "@/components/ui/PageIntro";
 import { createMailto, emailSubjects, siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -45,35 +46,25 @@ const termsSections = [
 export default function TermsPage() {
   return (
     <>
-      <section className="bg-navy-950 py-20 text-white sm:py-24">
-        <div className="container-padding mx-auto max-w-7xl">
-          <AnimatedSection>
-            <div className="max-w-4xl">
-              <p className="text-sm font-semibold uppercase text-primary-100">Terms of Use</p>
-              <h1 className="mt-4 font-display text-4xl font-semibold sm:text-5xl lg:text-6xl">
-                Clear terms for using the Nexcore website.
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-100">
-                These terms explain how visitors may use the website, submit enquiries, and contact Nexcore for business
-                discussions.
-              </p>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      <PageIntro
+        eyebrow="Terms of Use"
+        title="Clear terms for using the Nexcore website."
+        description="These terms explain how visitors may use the website, submit enquiries, and contact Nexcore for business discussions."
+        tone="light"
+      />
 
-      <section className="bg-background py-20 sm:py-24">
-        <div className="container-padding mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr]">
-          <AnimatedSection>
-            <aside className="rounded-lg border border-border bg-surface p-7">
-              <FileText className="size-8 text-primary-600" aria-hidden="true" />
-              <h2 className="mt-5 font-display text-2xl font-semibold">Official contact</h2>
+      <section className="section-space bg-background">
+        <div className="section-shell grid items-start gap-14 xl:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] xl:gap-20">
+          <AnimatedSection className="min-w-0">
+            <aside className="max-w-lg border-t border-border pt-8">
+              <FileText className="size-6 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+              <h2 className="mt-5 font-display text-xl font-semibold leading-7">Official contact</h2>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">
                 For questions about these terms, contact us at{" "}
                 <a
                   href={createMailto(emailSubjects.general)}
                   aria-label={`Email Nexcore at ${siteConfig.email} about terms of service`}
-                  className="font-semibold text-primary-600 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="break-words font-semibold text-primary-600 underline decoration-primary-500/30 underline-offset-4 hover:decoration-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500 dark:text-primary-400"
                 >
                   {siteConfig.email}
                 </a>
@@ -82,33 +73,34 @@ export default function TermsPage() {
               <a
                 href={createMailto(emailSubjects.general)}
                 aria-label={`Email Nexcore at ${siteConfig.email}`}
-                className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary-600 px-5 text-sm font-semibold text-white transition hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-background"
+                className="mt-6 inline-flex min-h-11 items-center justify-center gap-3 rounded-md bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-background"
               >
-                <Mail className="size-4" aria-hidden="true" />
+                <Mail className="size-4 shrink-0" aria-hidden="true" />
                 Email Nexcore
               </a>
             </aside>
           </AnimatedSection>
 
-          <AnimatedSection>
-            <div className="space-y-8">
-              {termsSections.map((section) => (
-                <section key={section.title} className="border-t border-border pt-8 first:border-t-0 first:pt-0">
-                  <h2 className="font-display text-2xl font-semibold">{section.title}</h2>
-                  <p className="mt-4 leading-8 text-muted-foreground">{section.body}</p>
-                </section>
-              ))}
-            </div>
-          </AnimatedSection>
+          <div className="min-w-0 space-y-10">
+            {termsSections.map((section, index) => (
+              <section key={section.title} className="border-t border-border pt-8">
+                <span className="technical-label text-primary-600 dark:text-primary-400" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h2 className="mt-3 font-display text-2xl font-semibold leading-8">{section.title}</h2>
+                <p className="mt-4 max-w-prose text-base leading-8 text-muted-foreground">{section.body}</p>
+              </section>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-surface py-16">
-        <div className="container-padding mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <ShieldCheck className="size-7 text-primary-600" aria-hidden="true" />
-            <h2 className="mt-3 font-display text-2xl font-semibold">Ready to discuss a project?</h2>
-            <p className="mt-2 text-muted-foreground">Use the official enquiry page for project and consultation requests.</p>
+      <section className="border-t border-border bg-surface py-14 sm:py-16">
+        <div className="section-shell flex flex-col items-start gap-8 xl:flex-row xl:items-center xl:justify-between xl:gap-16">
+          <div className="max-w-2xl">
+            <ShieldCheck className="size-6 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+            <h2 className="mt-4 font-display text-2xl font-semibold leading-8">Ready to discuss a project?</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">Use the official enquiry page for project and consultation requests.</p>
           </div>
           <ButtonLink href="/contact">Contact Nexcore</ButtonLink>
         </div>

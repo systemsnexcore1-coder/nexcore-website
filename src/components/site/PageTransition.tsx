@@ -12,11 +12,13 @@ export function PageTransition({ children }: { children: ReactNode }) {
     <AnimatePresence mode="wait" initial={false}>
       <motion.main
         id="main-content"
+        tabIndex={-1}
+        className="page-transition focus:outline-none"
         key={pathname}
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-        animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+        initial={false}
+        animate={{ opacity: 1, y: 0 }}
         exit={prefersReducedMotion ? undefined : { opacity: 0, y: -10 }}
-        transition={{ duration: 0.22, ease: "easeOut" }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.22, ease: "easeOut" }}
       >
         {children}
       </motion.main>

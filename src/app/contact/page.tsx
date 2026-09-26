@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { CalendarClock, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, CalendarClock, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { LocationMap } from "@/components/contact/LocationMap";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageIntro } from "@/components/ui/PageIntro";
 import { enquiryLinks, siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -42,53 +42,43 @@ const nextSteps = [
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-navy-950 py-20 text-white sm:py-24">
-        <div className="container-padding mx-auto max-w-7xl">
-          <AnimatedSection>
-            <div className="max-w-4xl">
-              <p className="text-sm font-semibold uppercase text-primary-100">Contact</p>
-              <h1 className="mt-4 font-display text-4xl font-semibold sm:text-5xl lg:text-6xl">
-                Start a focused enterprise technology conversation.
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-100">
-                Share the system, workflow, or digital service you want to improve. Nexcore will review the context and
-                respond with a clear path for discovery.
+      <PageIntro
+        eyebrow="Contact"
+        title="Start a focused enterprise technology conversation."
+        description="Share the system, workflow, or digital service you want to improve. Nexcore will review the context and respond with a clear path for discovery."
+        tone="light"
+      />
+
+      <section className="section-space bg-background">
+        <div className="section-shell grid items-start gap-16 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] xl:gap-20">
+          <div id="consultation-form" className="min-w-0 scroll-mt-28 border-t border-border pt-8">
+            <div className="max-w-2xl">
+              <p className="eyebrow">Enquiry form</p>
+              <h2 className="mt-4 font-display text-2xl font-semibold leading-8">
+                Tell us what you need to build or improve.
+              </h2>
+              <p className="mt-4 text-base leading-8 text-muted-foreground">
+                The form collects enough context for a useful first response while keeping procurement-sensitive details out of email.
               </p>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      <section className="bg-background py-20 sm:py-24">
-        <div className="container-padding mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.25fr_0.75fr]">
-          <AnimatedSection>
-            <div id="consultation-form" className="scroll-mt-28 rounded-lg border border-border bg-surface p-6 shadow-sm sm:p-8">
-              <SectionHeading
-                eyebrow="Enquiry form"
-                title="Tell us what you need to build or improve."
-                description="The form collects enough context for a useful first response while keeping procurement-sensitive details out of email."
-              />
-              <div className="mt-10">
-                <ContactForm leadType="contact" source="Website Contact Form" />
-              </div>
+            <div className="mt-10">
+              <ContactForm leadType="contact" source="Website Contact Form" />
             </div>
-          </AnimatedSection>
+          </div>
 
-          <div className="space-y-6">
+          <aside className="min-w-0 space-y-12">
             <AnimatedSection>
-              <div className="rounded-lg border border-border bg-surface p-7">
-                <h2 className="font-display text-2xl font-semibold">Business contact</h2>
-                <div className="mt-6 space-y-5">
+              <section className="border-t border-border pt-8">
+                <h2 className="font-display text-xl font-semibold leading-7">Business contact</h2>
+                <div className="mt-6 space-y-3">
                   {contactItems.map((item) => {
                     const Icon = item.icon;
                     const content = (
-                      <span className="flex gap-4">
-                        <span className="grid size-10 place-items-center rounded-lg bg-primary-50 text-primary-700 dark:bg-primary-500/[0.15] dark:text-primary-100">
-                          <Icon className="size-5" aria-hidden="true" />
-                        </span>
-                        <span>
+                      <span className="flex min-h-14 gap-4 py-2">
+                        <Icon className="mt-0.5 size-5 shrink-0 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+                        <span className="min-w-0">
                           <span className="block text-sm font-semibold text-foreground">{item.label}</span>
-                          <span className="mt-1 block text-sm leading-6 text-muted-foreground">{item.value}</span>
+                          <span className="mt-1 block break-words text-sm leading-6 text-muted-foreground transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-400">{item.value}</span>
                         </span>
                       </span>
                     );
@@ -100,7 +90,7 @@ export default function ContactPage() {
                         aria-label={
                           item.label === "Email" ? `Email Nexcore at ${item.value}` : item.label.startsWith("Phone") ? `Call Nexcore at ${item.value}` : undefined
                         }
-                        className="block rounded-lg transition hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500"
                       >
                         {content}
                       </a>
@@ -109,63 +99,65 @@ export default function ContactPage() {
                     );
                   })}
                 </div>
-              </div>
+              </section>
             </AnimatedSection>
 
             <AnimatedSection>
-              <div className="rounded-lg border border-border bg-surface p-7">
-                <h2 className="font-display text-2xl font-semibold">Direct enquiry links</h2>
+              <section className="border-t border-border pt-8">
+                <h2 className="font-display text-xl font-semibold leading-7">Direct enquiry links</h2>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">
                   Use these links when email is the simplest route for a specific enquiry type.
                 </p>
-                <div className="mt-5 grid gap-3">
+                <div className="mt-5 divide-y divide-border">
                   {enquiryLinks.map((link) => (
                     <a
                       key={link.subject}
                       href={link.href}
-                      className="rounded-lg border border-border bg-background px-4 py-3 text-sm font-semibold text-muted-foreground transition hover:border-primary-500 hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="group flex min-h-12 items-center justify-between gap-4 py-3 text-sm font-medium text-foreground transition-colors hover:text-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500 dark:hover:text-primary-400"
                     >
                       {link.label}
+                      <ArrowUpRight className="size-4 shrink-0 text-primary-600 dark:text-primary-400" aria-hidden="true" />
                     </a>
                   ))}
                 </div>
-              </div>
+              </section>
             </AnimatedSection>
 
             <AnimatedSection>
-              <LocationMap />
-            </AnimatedSection>
-
-            <AnimatedSection>
-              <div className="rounded-lg border border-border bg-surface p-7">
-                <CalendarClock className="size-6 text-primary-600" aria-hidden="true" />
-                <h2 className="mt-5 font-display text-2xl font-semibold">What happens next</h2>
-                <ol className="mt-5 space-y-4">
+              <section className="border-t border-border pt-8">
+                <div className="flex items-center gap-3">
+                  <CalendarClock className="size-5 shrink-0 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+                  <h2 className="font-display text-xl font-semibold leading-7">What happens next</h2>
+                </div>
+                <ol className="mt-6 space-y-5">
                   {nextSteps.map((step, index) => (
-                    <li key={step} className="flex gap-3 text-sm leading-7 text-muted-foreground">
-                      <span className="mt-1 inline-flex size-6 shrink-0 items-center justify-center rounded-lg bg-primary-600 text-xs font-semibold text-white">
-                        {index + 1}
+                    <li key={step} className="flex gap-4 text-sm leading-7 text-muted-foreground">
+                      <span className="technical-label shrink-0 pt-1 text-primary-600 dark:text-primary-400" aria-hidden="true">
+                        {String(index + 1).padStart(2, "0")}
                       </span>
                       {step}
                     </li>
                   ))}
                 </ol>
-              </div>
+              </section>
             </AnimatedSection>
-          </div>
+          </aside>
+        </div>
+        <div className="section-shell mt-16">
+          <LocationMap />
         </div>
       </section>
 
-      <section className="bg-surface py-16">
-        <div className="container-padding mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <ShieldCheck className="size-7 text-primary-600" aria-hidden="true" />
-            <h2 className="mt-3 font-display text-2xl font-semibold">Responsible handling of enquiry data</h2>
-            <p className="mt-2 text-muted-foreground">
+      <section className="border-t border-border bg-surface py-14 sm:py-16">
+        <div className="section-shell flex flex-col gap-8 xl:flex-row xl:items-center xl:justify-between xl:gap-16">
+          <div className="max-w-2xl">
+            <ShieldCheck className="size-6 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+            <h2 className="mt-4 font-display text-2xl font-semibold leading-8">Responsible handling of enquiry data</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">
               Nexcore uses submitted details only to assess and respond to your business enquiry.
             </p>
           </div>
-          <p className="text-sm font-semibold text-primary-600">Expected response: 1 to 2 business days</p>
+          <p className="border-l border-primary-500 pl-4 text-sm font-semibold leading-7 text-primary-600 dark:text-primary-400">Expected response: 1 to 2 business days</p>
         </div>
       </section>
     </>

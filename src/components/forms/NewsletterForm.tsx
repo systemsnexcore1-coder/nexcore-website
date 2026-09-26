@@ -112,7 +112,7 @@ export function NewsletterForm() {
   const isSubmissionDisabled = isLoading || !formspreeEndpoint;
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate aria-label="Newsletter signup">
       <input type="hidden" name="_subject" value="New Nexcore Newsletter Signup" readOnly />
       <input type="hidden" name="subject" value="New Nexcore Newsletter Signup" readOnly />
       <input type="hidden" name="form_type" value="Newsletter signup" readOnly />
@@ -130,7 +130,7 @@ export function NewsletterForm() {
         />
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="flex flex-wrap gap-3">
         <label htmlFor="newsletter-email" className="sr-only">
           Email address
         </label>
@@ -141,7 +141,7 @@ export function NewsletterForm() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Business email address"
-          className="min-h-11 flex-1 rounded-lg border border-border bg-background px-4 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+          className="min-h-11 min-w-0 flex-[1_1_180px] rounded-md border border-border bg-background px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
         />
         <button
           type="submit"
@@ -158,7 +158,7 @@ export function NewsletterForm() {
             <StatusMessage message={error} />
           </p>
         ) : null}
-        {status === "success" ? <p className="text-teal-500">{formSuccessMessage}</p> : null}
+        {status === "success" ? <p className="text-teal-700 dark:text-teal-400">{formSuccessMessage}</p> : null}
       </div>
     </form>
   );

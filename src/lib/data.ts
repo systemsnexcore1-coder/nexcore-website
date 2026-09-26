@@ -400,30 +400,3 @@ export const team = [
       "Combines full-stack development with UI/UX design and database expertise, focusing on intuitive interfaces, effective user journeys, data structures, and reliable application foundations. Works across interface design, web technologies, SQL and database development."
   }
 ];
-
-export const testimonials = [
-  {
-    quote:
-      "Nexcore helped us replace manual workflows with a system our teams could actually adopt. The difference was visible within the first reporting cycle.",
-    author: "Director of Operations",
-    organization: "Public sector institution"
-  },
-  {
-    quote:
-      "Their team understood the controls, reporting needs, and user experience expectations of a large organization. That balance mattered.",
-    author: "Chief Information Officer",
-    organization: "Financial services group"
-  },
-  {
-    quote:
-      "The platform gave our departments a shared operating picture without forcing us into a rigid off-the-shelf workflow.",
-    author: "Program Manager",
-    organization: "International NGO"
-  }
-];
-
-export const featuredMetrics = [
-  { value: "7", label: "Enterprise sectors served" },
-  { value: "5", label: "Core solution practices" },
-  { value: "24/7", label: "Support planning available" }
-];

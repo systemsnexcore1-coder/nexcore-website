@@ -40,8 +40,8 @@ const initialValues: ContactFormValues = {
   source: "Website Contact Form"
 };
 
-function FieldError({ message }: { message?: string }) {
-  return <div className="mt-2 min-h-5 text-sm text-red-600 dark:text-red-400">{message}</div>;
+function FieldError({ message, id }: { message?: string; id: string }) {
+  return <div id={id} className="mt-2 min-h-5 text-sm text-red-600 dark:text-red-400">{message}</div>;
 }
 
 function StatusMessage({ message }: { message: string }) {
@@ -68,7 +68,7 @@ function StatusMessage({ message }: { message: string }) {
 
 function inputClass(hasError?: boolean) {
   return cn(
-    "min-h-12 w-full rounded-lg border bg-background px-4 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-primary-500/20",
+    "mt-2 min-h-12 min-w-0 w-full rounded-md border bg-background px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-primary-500/20",
     hasError ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary-500"
   );
 }
@@ -163,6 +163,8 @@ export function ContactForm({
           Object.entries(flattened).map(([field, messages]) => [field, messages?.[0]])
         ) as FormErrors
       );
+      const firstInvalidField = form.elements.namedItem(Object.keys(flattened)[0]);
+      if (firstInvalidField instanceof HTMLElement) firstInvalidField.focus();
       return;
     }
 
@@ -261,7 +263,7 @@ export function ContactForm({
   const isSubmissionDisabled = isLoading || !formspreeEndpoint;
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-6">
+    <form onSubmit={handleSubmit} noValidate className="contact-form space-y-6" aria-label={leadType === "consultation" ? "Consultation request" : "Contact enquiry"} aria-busy={isLoading}>
       <input type="hidden" name="_subject" value={formSubject} readOnly />
       <input type="hidden" name="subject" value={formSubject} readOnly />
       <input type="hidden" name="form_type" value={leadType === "consultation" ? "Consultation request" : "Website enquiry"} readOnly />
@@ -283,7 +285,7 @@ export function ContactForm({
         />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="contact-form-fields grid gap-x-6 gap-y-3">
         <div>
           <label htmlFor="name" className="text-sm font-medium text-foreground">
             Name
@@ -297,8 +299,10 @@ export function ContactForm({
             className={inputClass(Boolean(errors.name))}
             placeholder="Full name"
             aria-invalid={Boolean(errors.name)}
+            aria-describedby="name-error"
+            required
           />
-          <FieldError message={errors.name} />
+          <FieldError id="name-error" message={errors.name} />
         </div>
 
         <div>
@@ -314,8 +318,10 @@ export function ContactForm({
             className={inputClass(Boolean(errors.company))}
             placeholder="Organization name"
             aria-invalid={Boolean(errors.company)}
+            aria-describedby="company-error"
+            required
           />
-          <FieldError message={errors.company} />
+          <FieldError id="company-error" message={errors.company} />
         </div>
 
         <div>
@@ -331,8 +337,10 @@ export function ContactForm({
             className={inputClass(Boolean(errors.position))}
             placeholder="Role or title"
             aria-invalid={Boolean(errors.position)}
+            aria-describedby="position-error"
+            required
           />
-          <FieldError message={errors.position} />
+          <FieldError id="position-error" message={errors.position} />
         </div>
 
         <div>
@@ -349,8 +357,10 @@ export function ContactForm({
             className={inputClass(Boolean(errors.email))}
             placeholder="Business email address"
             aria-invalid={Boolean(errors.email)}
+            aria-describedby="email-error"
+            required
           />
-          <FieldError message={errors.email} />
+          <FieldError id="email-error" message={errors.email} />
         </div>
 
         <div>
@@ -366,8 +376,10 @@ export function ContactForm({
             className={inputClass(Boolean(errors.phone))}
             placeholder="+233 55 058 1567"
             aria-invalid={Boolean(errors.phone)}
+            aria-describedby="phone-error"
+            required
           />
-          <FieldError message={errors.phone} />
+          <FieldError id="phone-error" message={errors.phone} />
         </div>
 
         <div>
@@ -381,6 +393,8 @@ export function ContactForm({
             onChange={(event) => updateField("serviceRequired", event.target.value as ContactFormValues["serviceRequired"])}
             className={inputClass(Boolean(errors.serviceRequired))}
             aria-invalid={Boolean(errors.serviceRequired)}
+            aria-describedby="serviceRequired-error"
+            required
           >
             <option value="">Select a service</option>
             {serviceOptions.map((option) => (
@@ -389,7 +403,7 @@ export function ContactForm({
               </option>
             ))}
           </select>
-          <FieldError message={errors.serviceRequired} />
+          <FieldError id="serviceRequired-error" message={errors.serviceRequired} />
         </div>
 
         <div>
@@ -403,6 +417,8 @@ export function ContactForm({
             onChange={(event) => updateField("budget", event.target.value as ContactFormValues["budget"])}
             className={inputClass(Boolean(errors.budget))}
             aria-invalid={Boolean(errors.budget)}
+            aria-describedby="budget-error"
+            required
           >
             <option value="">Select a budget</option>
             {budgetOptions.map((option) => (
@@ -411,7 +427,7 @@ export function ContactForm({
               </option>
             ))}
           </select>
-          <FieldError message={errors.budget} />
+          <FieldError id="budget-error" message={errors.budget} />
         </div>
 
         <div>
@@ -425,6 +441,8 @@ export function ContactForm({
             onChange={(event) => updateField("timeline", event.target.value as ContactFormValues["timeline"])}
             className={inputClass(Boolean(errors.timeline))}
             aria-invalid={Boolean(errors.timeline)}
+            aria-describedby="timeline-error"
+            required
           >
             <option value="">Select a timeline</option>
             {timelineOptions.map((option) => (
@@ -433,7 +451,7 @@ export function ContactForm({
               </option>
             ))}
           </select>
-          <FieldError message={errors.timeline} />
+          <FieldError id="timeline-error" message={errors.timeline} />
         </div>
       </div>
 
@@ -450,8 +468,10 @@ export function ContactForm({
           className={cn(inputClass(Boolean(errors.projectDescription)), "resize-y py-3 leading-7")}
           placeholder="Describe the business problem, current process, stakeholders, and expected outcome."
           aria-invalid={Boolean(errors.projectDescription)}
+          aria-describedby="projectDescription-error"
+          required
         />
-        <FieldError message={errors.projectDescription} />
+        <FieldError id="projectDescription-error" message={errors.projectDescription} />
       </div>
 
       <div className="min-h-6 text-sm" aria-live="polite">
@@ -461,7 +481,7 @@ export function ContactForm({
           </p>
         ) : null}
         {status === "success" ? (
-          <p className="text-teal-500">{successMessage}</p>
+          <p className="text-teal-700 dark:text-teal-400">{successMessage}</p>
         ) : null}
       </div>
 

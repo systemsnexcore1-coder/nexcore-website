@@ -13,11 +13,11 @@ export function SectionHeading({ eyebrow, title, description, align = "left", to
   return (
     <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
       {eyebrow ? (
-        <p className={cn("text-sm font-semibold uppercase", tone === "dark" ? "text-primary-100" : "text-primary-600")}>
+        <p className={cn("eyebrow", align === "center" && "justify-center", tone === "dark" && "!text-primary-100")}>
           {eyebrow}
         </p>
       ) : null}
-      <h2 className={cn("mt-3 font-display text-3xl font-semibold sm:text-4xl", tone === "dark" ? "text-white" : "text-foreground")}>
+      <h2 className={cn("mt-4 text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl", tone === "dark" ? "text-white" : "text-foreground")}>
         {title}
       </h2>
       {description ? (
